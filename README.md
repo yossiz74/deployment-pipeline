@@ -1,2 +1,2 @@
-# jenkins-pipeline
-Playing around with jenkins 2 pipeline
+# deployment-pipeline
+Modeling the deployment pipeline using Jenkins
