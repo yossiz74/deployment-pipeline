@@ -1,3 +1,10 @@
+  def setup_env(env_type) {
+    echo "Read env & app config"
+    echo "Configure environment"  
+    echo "Get binaries from Artifact Repository"
+    echo "Deploy binaries"
+    echo "Smoke test"
+  }
 node {
   stage ('Commit') {
     echo "Read version control"
@@ -8,21 +15,17 @@ node {
     echo "Store reports, binaries and metdata to Artifact Repository"
   }
   stage ('Acceptance') {
-    echo "Read env & app config"
-    echo "Configure environment"  
-    echo "Get binaries from Artifact Repository"
-    echo "Deploy binaries"
-    echo "Smoke test"
+    setup_env('Acceptance')
     echo "Acceptance test"
     echo "Store reports and metadata to Artifact Repository"
   }
   stage ('Capacity test') {
-    echo "Read env & app config"
-    echo "Configure environment"  
-    echo "Get binaries from Artifact Repository"
-    echo "Deploy binaries"
-    echo "Smoke test"
+    setup_env('Capacity')
     echo "Capacity test"
     echo "Store reports and metadata to Artifact Repository"
+  }
+  stage ('UAC test') {
+    setup_env('UAC')
+    echo "ready for manual tests"  
  }
 }
