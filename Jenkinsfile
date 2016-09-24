@@ -14,18 +14,30 @@ node {
     echo "Code Analysis"
     echo "Store reports, binaries and metdata to Artifact Repository"
   }
+}
+node {
   stage ('Acceptance') {
     setup_env('Acceptance')
     echo "Acceptance test"
     echo "Store reports and metadata to Artifact Repository"
   }
-  stage ('Capacity test') {
-    setup_env('Capacity')
-    echo "Capacity test"
-    echo "Store reports and metadata to Artifact Repository"
-  }
-  stage ('UAC test') {
-    setup_env('UAC')
-    echo "ready for manual tests"  
- }
 }
+parallel (
+    "stream 1" : { 
+        node {
+            stage ('Capacity test') {
+                setup_env('Capacity')
+                echo "Capacity test"
+                echo "Store reports and metadata to Artifact Repository"
+            }
+        }
+    },
+    "stream 2" : {
+        node {
+            stage ('UAC test') {
+                setup_env('UAC')
+                echo "ready for manual tests"  
+            }
+        }
+    }
+)
